@@ -1,7 +1,7 @@
 # FrankenPHP's configuration, passed to Octane with --caddyfile. It is Octane's own file (the {$…} values are filled
 # in by `artisan octane:frankenphp`) with three things taken out, because on one processor each of them is paid for
 # out of the application's share:
-#   - compression (optional in the spec): compressing every feed answer cost more than building it;
+#   - the compression step (optional in the spec, and the load script never asks for a compressed answer);
 #   - the look-up of a static file for every request: this API has none, every request is for the application;
 #   - the access log.
 {
