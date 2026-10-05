@@ -1,0 +1,26 @@
+# FrankenPHP's configuration, passed to Octane with --caddyfile. It is Octane's own file (the {$…} values are filled
+# in by `artisan octane:frankenphp`) with three things taken out, because on one processor each of them is paid for
+# out of the application's share:
+#   - compression (optional in the spec): compressing every feed answer cost more than building it;
+#   - the look-up of a static file for every request: this API has none, every request is for the application;
+#   - the access log.
+{
+	{$CADDY_GLOBAL_OPTIONS}
+
+	admin {$CADDY_SERVER_ADMIN_HOST}:{$CADDY_SERVER_ADMIN_PORT}
+
+	frankenphp {
+		worker {
+			file "{$APP_PUBLIC_PATH}/frankenphp-worker.php"
+			{$CADDY_SERVER_WORKER_DIRECTIVE}
+		}
+	}
+}
+
+{$CADDY_SERVER_SERVER_NAME} {
+	route {
+		root * "{$APP_PUBLIC_PATH}"
+		rewrite * /frankenphp-worker.php
+		php
+	}
+}
