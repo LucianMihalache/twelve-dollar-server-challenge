@@ -44,7 +44,7 @@ about 60 microseconds, one post about 7); nearly all of the rest is the framewor
 | Setup | Processor time per request under load |
 |---|---|
 | Laravel booted for every request (what PHP-FPM does, OPcache warm) | about 5 ms |
-| Octane as installed | 2.05 ms |
+| Octane with Laravel's router, its resets already cut to three, Octane's own server config | 2.05 ms |
 | + server config without compression, static-file look-up and access log | 1.85 ms |
 | + the three fixed paths on Octane's own routes | 1.67 ms |
 | + all five endpoints on Octane's own routes | 1.32 ms |
@@ -86,7 +86,7 @@ of network.
 
 | Setup | Users | Hold | 95th | 99th | Failed | Result |
 |---|---|---|---|---|---|---|
-| Octane as installed | 5,000 | 2 min | 1.05 s | 1.8 s | 0% | fails: the processor is full |
+| Laravel's router, three resets, Octane's own server config | 5,000 | 2 min | 1.05 s | 1.8 s | 0% | fails: the processor is full |
 | This submission | 5,000 | 5 min | 51 ms | 95 ms | 0.00% (16 of 185,629) | passes, processor 35 to 45% idle |
 | This submission, one step earlier (three resets instead of one) | 6,000 | 2 min | 51 ms | 79 ms | 0% | passes, processor 20 to 35% idle |
 
