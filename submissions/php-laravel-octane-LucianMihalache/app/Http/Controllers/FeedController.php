@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Support\Db;
 use App\Support\Jwt;
-use App\Support\Profile;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Throwable;
@@ -22,7 +21,6 @@ final class FeedController extends Controller
 
     public function health(): Response
     {
-        Profile::$on && Profile::mark('controller');
         self::$startedAt ??= time();
         try {
             Db::rows('ping');
@@ -35,7 +33,6 @@ final class FeedController extends Controller
 
     public function feed(): Response
     {
-        Profile::$on && Profile::mark('controller');
         $posts = [];
         foreach (Db::rows('feed') as $row) {
             $posts[] = self::post($row);
@@ -46,7 +43,6 @@ final class FeedController extends Controller
 
     public function show(string $id): Response
     {
-        Profile::$on && Profile::mark('controller');
         if (! self::isId($id)) {
             return self::error(400, 'invalid post id');
         }
@@ -57,7 +53,6 @@ final class FeedController extends Controller
 
     public function store(Request $request): Response
     {
-        Profile::$on && Profile::mark('controller');
         $user = Jwt::user($request->headers->get('Authorization'));
         if (is_string($user)) {
             return self::error(401, $user);
@@ -82,7 +77,6 @@ final class FeedController extends Controller
 
     public function like(Request $request, string $id): Response
     {
-        Profile::$on && Profile::mark('controller');
         $user = Jwt::user($request->headers->get('Authorization'));
         if (is_string($user)) {
             return self::error(401, $user);

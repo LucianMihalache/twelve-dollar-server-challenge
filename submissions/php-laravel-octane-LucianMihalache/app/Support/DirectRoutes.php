@@ -12,7 +12,7 @@ use Throwable;
 | Octane's own routes, with post ids.
 |
 | Octane can answer a request itself, without sending it through Laravel's HTTP kernel and router (Octane::route).
-| The stopwatch (Profile) showed why that matters here: for an endpoint with no middleware, getting through the
+| Timing each stage of a request showed why that matters here: for an endpoint with no middleware, getting through the
 | kernel and the router took several times longer than producing the answer. But a stock Octane route is an exact
 | path, and two of the five endpoints carry a post id. This is Octane's route table with those two shapes added,
 | bound in place of it (AppServiceProvider). Under Octane every request is answered here, by the same controller

@@ -41,28 +41,12 @@ final class Db
      */
     public static function rows(string $name, array $values = []): array
     {
-        if (Profile::$on) {
-            $from = hrtime(true);
-            $rows = self::run($name, $values)->fetchAll();
-            Profile::database(hrtime(true) - $from);
-
-            return $rows;
-        }
-
         return self::run($name, $values)->fetchAll();
     }
 
     /** Runs one of the writes above and returns how many rows it changed. */
     public static function changed(string $name, array $values): int
     {
-        if (Profile::$on) {
-            $from = hrtime(true);
-            $count = self::run($name, $values)->rowCount();
-            Profile::database(hrtime(true) - $from);
-
-            return $count;
-        }
-
         return self::run($name, $values)->rowCount();
     }
 

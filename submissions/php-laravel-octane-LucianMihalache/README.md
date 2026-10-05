@@ -93,13 +93,6 @@ of network.
 Above about 6,000 users the load generator's own network started dropping idle connections, so the limit of this
 submission was not reached in these runs: at 6,000 users the droplet's processor was still 20 to 35% idle.
 
-## A stopwatch for one request
-
-Starting the server with `FEED_PROFILE=1` switches on `app/Support/Profile.php` (off otherwise, and never on for a
-load test). Each answer then carries `X-Feed-Received` (the clock when PHP got the request) and `Server-Timing` (how
-long the app took, and how much of that was the database), and each request adds a line to
-`storage/logs/profile.log` with the time of every stage it passed through.
-
 ## License
 
 MIT, under the repo's [license](../../LICENSE).
