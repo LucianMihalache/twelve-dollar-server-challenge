@@ -1,0 +1,20 @@
+# FrankenPHP's configuration ({$…} values come from start.sh). Every request goes straight to the PHP worker: there
+# are no static files, no compression (optional in the spec) and no access log.
+{
+	admin off
+	auto_https off
+
+	frankenphp {
+		worker {
+			file "{$APP_DIR}/public/worker.php"
+			num {$WORKERS}
+		}
+	}
+}
+
+http://:{$PORT} {
+	bind {$HOST}
+	root * "{$APP_DIR}/public"
+	rewrite * /worker.php
+	php
+}
